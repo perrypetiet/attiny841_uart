@@ -11,3 +11,6 @@ Depends on some standard AVR includes.
  
 This library doesn't account for overflowing of the buffers!
 Unintended behaviour is expected when buffers are not emptied in time.
+
+I tried to make flash size as small as possible. Will maybe update in 
+the future.
