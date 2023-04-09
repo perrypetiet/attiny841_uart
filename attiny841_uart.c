@@ -135,7 +135,7 @@ bool init_uart(uint8_t  uart_select,
         (stopBits == 1 || stopBits == 2))
     {
       uart_data[uart_select] = malloc(sizeof(UART_DATA)); 
-      //Set all register to 0;
+      //disable interrupts
       cli();
       if (uart_select == USART_0)
       {
@@ -198,6 +198,8 @@ bool init_uart(uint8_t  uart_select,
         //enable receiver and transmitter
         UCSR0B |= (1 << TXEN0 | 1 << RXEN0 | 1 << RXCIE0);
         UCSR0B &= ~(1 << TXCIE0);
+
+        init_succes = true;
       }
 
       else if (uart_select == USART_1)
@@ -261,6 +263,8 @@ bool init_uart(uint8_t  uart_select,
         //enable receiver and transmitter
         UCSR1B |= (1 << TXEN1 | 1 << RXEN1 | 1 << RXCIE1);
         UCSR1B &= ~(1 << TXCIE1);
+
+        init_succes = true;
       }
       sei();    
 
@@ -268,8 +272,6 @@ bool init_uart(uint8_t  uart_select,
       uart_data[uart_select]->rx.tail = 0;
       uart_data[uart_select]->tx.head = 0;
       uart_data[uart_select]->tx.tail = 0;
-
-      init_succes = true;
     }
   }
   return init_succes;
